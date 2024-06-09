@@ -1,12 +1,11 @@
 import { Schema, model } from 'mongoose';
 
 const dateTransformer = (value) => {
-    const date = new Date(value);
-    return date.toLocaleDateString(); 
-  };
-  
+  const date = new Date(value);
+  return date.toLocaleDateString(); 
+};
 
-const dolarSchema = new Schema({
+const euroSchema = new Schema({
   fecha: {
     type: String,
     required: true,
@@ -25,4 +24,4 @@ const dolarSchema = new Schema({
   },
 }, { timestamps: true }); 
 
-export default model('Dolar', dolarSchema);
+export default model('Euro', euroSchema);

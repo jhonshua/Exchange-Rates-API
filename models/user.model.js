@@ -38,15 +38,8 @@ const userSchema = new mongoose.Schema({
     type: Object,
     required: true
   },
-  apiKey: {
-    type: String,
-    default: null // Valor por defecto null para apiKey
-  },
-  expirationDate: {
-    type: Date,
-    default: null // Valor por defecto null para expirationDate
-  }
-}, {
+}, 
+{
   timestamps: true
 });
 

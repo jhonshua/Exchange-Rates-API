@@ -7,8 +7,13 @@ import 'dotenv/config';
 const tokenSecreto = process.env.TOKEN_SECRET;
 
 export const authRequired = (req, res, next) => {
+
   // Verificamos si el encabezado de autorización está presente.
-  const authorization = req.headers['authorization'];
+  if ( req.headers['authorization'] == null && req.headers['authorization'] == undefined){
+    res.status(500).json({ message: 'Error desconocido al verificar el token' });
+  }
+
+  const authorization = req.headers['authorization'] 
   if (authorization) {
     try {
       // Verificamos el token de acceso en el encabezado de autorización.
