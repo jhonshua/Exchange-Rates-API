@@ -1,0 +1,10 @@
+node_modules/
+npm-debug.log
+build/
+tmp/
+README.md
+Dockerfile
+README.md
+.gitignore
+.prettierrc
+.git

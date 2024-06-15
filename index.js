@@ -26,7 +26,7 @@ app.use(
 );
 
 connectDB();
-criptoprice();
+// criptoprice();
 usdScrapeDivContent();
 eurScrapeDivContent();
 rubScrapeDivContent();

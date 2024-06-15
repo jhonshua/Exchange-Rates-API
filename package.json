@@ -4,8 +4,8 @@
   "description": "currency-converter-api",
   "main": "index.js",
   "scripts": {
-    "test": "dev",
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -14,6 +14,9 @@
   "keywords": [
     "convertidor",
     "divisas",
+    "puppeteer",
+    "docker",
+    "container",
     "precio",
     "api"
   ],
