@@ -14,6 +14,7 @@ import auth from './routes/auth.routes.js';
 import apiKey from './routes/apiKey.routes.js';
 import services from './routes/services.routes.js';
 
+
 const app = express();
 const port = process.env.PORT || 3000;
 const front_url = process.env.FRONTEND_URL;
@@ -26,7 +27,7 @@ app.use(
 );
 
 connectDB();
-// criptoprice();
+criptoprice();
 usdScrapeDivContent();
 eurScrapeDivContent();
 rubScrapeDivContent();

@@ -18,4 +18,4 @@ router.post('/auth', validateReqBody, validateUserlogin, login);
 router.post('/logout', logout);
 router.delete('/deleteUser', validateReqBody, authRequired, deleteUser);
 
-export default router;
+export default router
