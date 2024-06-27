@@ -11,7 +11,7 @@ import {
 
 const router = Router();
 
-router.get('/users', validateReqBody, authRequired, GetAllUsers);
+router.get('/users', authRequired, GetAllUsers);
 router.get('/users/:id', authRequired, GetUserById);
 router.delete('/DeleteUsers/:id', authRequired, DeleteUser);
 router.post('/CreateUser', authRequired, CreateUser);

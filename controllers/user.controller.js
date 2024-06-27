@@ -27,6 +27,7 @@ export const GetAllUsers = async (req, res) => {
   const status = req.query.status; // Parámetro para búsqueda por estado
   const full_name = req.query.full_name; // Parámetro para búsqueda por nombre completo
   const rol_name = req.query.rol_name; // Parámetro para búsqueda por rol
+  
   const params = { skip, sort, page, status, full_name, rol_name };
 
   let users;
