@@ -6,6 +6,7 @@ import { connectDB } from './db.js';
 import { usdScrapeDivContent } from './microservices/usdprice.js';
 import { rubScrapeDivContent } from './microservices/rubprice.js';
 import { eurScrapeDivContent } from './microservices/eurprice.js';
+import { usdScrapeDivSistemaNacional } from './microservices/sistemaNationalPrice.js'
 import { criptoprice } from './microservices/criptoprice.js';
 import 'dotenv/config';
 
@@ -31,6 +32,7 @@ criptoprice();
 usdScrapeDivContent();
 eurScrapeDivContent();
 rubScrapeDivContent();
+usdScrapeDivSistemaNacional();
 
 app.use(express.json({ strict: false }));
 app.use(morgan('dev'));

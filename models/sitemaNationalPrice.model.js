@@ -1,20 +1,26 @@
 import { Schema, model } from 'mongoose';
 
-const dateTransformer = (value) => {
-    const date = new Date(value);
-    return date.toLocaleDateString();
-};
-
 const sitemaNationalPriceSchema = new Schema({
-  
-    createdAt: {
-        type: Date,
-        transform: dateTransformer,
-    },
-    updatedAt: {
-        type: Date,
-        transform: dateTransformer,
-    },
-}, { timestamps: true });
+  banco: {
+    type: String,
+    required: true, // Mark 'banco' as a required field
+  },
+  compra: {
+    type: Number,
+    required: true, // Mark 'compra' as a required field
+  },
+  venta: {
+    type: Number,
+    required: true, // Mark 'venta' as a required field
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now, // Set default value for creation time
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now, // Set default value for update time
+  },
+});
 
 export default model('sitemaNationalPrice', sitemaNationalPriceSchema);
