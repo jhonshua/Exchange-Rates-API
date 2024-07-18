@@ -1,4 +1,4 @@
-import Ruble from '../../models/rub.model.js';
+import Ruble from '../../models/model_services/rub.model.js';
 
 export const getPriceRub = async (req, res) => {
 	try {

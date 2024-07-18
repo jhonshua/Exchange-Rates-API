@@ -1,6 +1,6 @@
 import { launch } from 'puppeteer';
 import cron from 'node-cron';
-import Euro from '../models/eur.model.js'; 
+import Euro from '../models/model_services/eur.model.js'; 
 import 'dotenv/config';
 
 const schedules = [

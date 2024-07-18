@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 
-import { connectDB } from './db.js';
+import { connectDB } from './config/db.js';
 import { usdScrapeDivContent } from './microservices/usdprice.js';
 import { rubScrapeDivContent } from './microservices/rubprice.js';
 import { eurScrapeDivContent } from './microservices/eurprice.js';

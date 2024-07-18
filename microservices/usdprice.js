@@ -1,6 +1,6 @@
 import { launch } from 'puppeteer';
 import cron from 'node-cron';
-import Dolar from '../models/usd.model.js'; 
+import Dolar from '../models/model_services/usd.model.js'; 
 import 'dotenv/config';
 
 const schedules = [

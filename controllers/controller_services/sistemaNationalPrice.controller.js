@@ -1,4 +1,4 @@
-import sitemaNationalPrice from '../../models/sitemaNationalPrice.model.js';
+import sitemaNationalPrice from '../../models/model_services/sitemaNationalPrice.model.js';
 
 export const GetPrecioNational = async (req, res) => {
   try {

@@ -1,12 +1,12 @@
-import User from '../models/user.model.js';
+import User from '../../models/model_user/user.model.js';
 //import Rol from '../models/rol.model.js';
-import { createAccessToken } from '../libs/jwt.js';
-import { sendMail } from '../libs/sendEmail.js';
+import { createAccessToken } from '../../libs/jwt.js';
+import { sendMail } from '../../libs/sendEmail.js';
 import bcrypt from 'bcryptjs';
 
 //registramos nuevo usuario**************************************************
 export const register = async (req, res) => {
-
+console.log('me ejecuto')
 	const {
 		full_name,
 		username,

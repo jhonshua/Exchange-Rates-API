@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import moment from 'moment';
-import ApiKey from '../models/apiKey.model.js';
+import ApiKey from '../../models/model_apiKey/apiKey.model.js';
 
 export const addApikey = async (req, res) => {
   const userId = req.body.userId;

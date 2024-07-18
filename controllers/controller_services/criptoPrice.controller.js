@@ -1,4 +1,4 @@
-import CryptoData from '../../models/cryptoData.model.js';
+import CryptoData from '../../models/model_services/cryptoData.model.js';
 
 export const GetPriceCripto = async (req, res) => {
     try {

@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { verifyApiKey } from '../middlewares/validateApikey.js';
-import { getPriceUsd } from '../controllers/services/usdPrice.controller.js';
-import { getPriceRub } from '../controllers/services/rubPrice.controller.js';
-import { getPriceEur } from '../controllers/services/eurPrice.controller.js';
-import { GetPrecioNational } from '../controllers/services/sistemaNationalPrice.controller.js';
-import { GetPriceCripto } from '../controllers/services/criptoPrice.controller.js'
+import { getPriceUsd } from '../controllers/controller_services/usdPrice.controller.js';
+import { getPriceRub } from '../controllers/controller_services/rubPrice.controller.js';
+import { getPriceEur } from '../controllers/controller_services/eurPrice.controller.js';
+import { GetPrecioNational } from '../controllers/controller_services/sistemaNationalPrice.controller.js';
+import { GetPriceCripto } from '../controllers/controller_services/criptoPrice.controller.js'
 
 const router = Router();
 

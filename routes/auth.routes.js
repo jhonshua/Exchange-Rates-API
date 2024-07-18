@@ -4,7 +4,7 @@ import {
 	register,
 	logout,
 	deleteUser
-} from '../controllers/auth.controller.js';
+} from '../controllers/controller_auth/auth.controller.js';
 import { authRequired } from '../middlewares/validateToken.js';
 import {
 	validateUserlogin,

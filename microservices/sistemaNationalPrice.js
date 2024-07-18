@@ -1,6 +1,6 @@
 import { launch } from 'puppeteer';
 import cron from 'node-cron';
-import sitemaNationalPrice from '../models/sitemaNationalPrice.model.js'; 
+import sitemaNationalPrice from '../models/model_services/sitemaNationalPrice.model.js';
 import 'dotenv/config';
 
 // Definición de horarios de ejecución

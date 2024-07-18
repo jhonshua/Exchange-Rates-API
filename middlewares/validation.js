@@ -1,4 +1,4 @@
-import User from '../models/user.model.js';
+import User from '../models/model_user/user.model.js';
 
 export const validateUserRegistration = async (req, res, next) => {
 	const EMAIL_REGEX =

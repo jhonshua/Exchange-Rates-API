@@ -1,4 +1,4 @@
-import Dolar from '../../models/usd.model.js';
+import Dolar from '../../models/model_services/usd.model.js';
 
 export const getPriceUsd = async (req, res) => {
 	try {

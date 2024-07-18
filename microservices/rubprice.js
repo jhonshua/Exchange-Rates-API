@@ -1,6 +1,6 @@
 import { launch } from 'puppeteer';
 import cron from 'node-cron';
-import Ruble from '../models/rub.model.js';
+import Ruble from '../models/model_services/rub.model.js';
 import 'dotenv/config';
 
 const schedules = [

@@ -1,4 +1,4 @@
-import Euro from '../../models/eur.model.js';
+import Euro from '../../models/model_services/eur.model.js';
 
 export const getPriceEur = async (req, res) => {
   try {

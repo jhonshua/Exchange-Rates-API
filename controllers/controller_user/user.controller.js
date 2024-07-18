@@ -1,5 +1,5 @@
-import User from '../models/user.model.js';
-import { createAccessToken } from '../libs/jwt.js';
+import User from '../../models/model_user/user.model.js';
+import { createAccessToken } from '../../libs/jwt.js';
 import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
 
