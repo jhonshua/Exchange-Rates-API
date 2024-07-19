@@ -20,11 +20,11 @@ export const getPriceRub = async (req, res) => {
 		const tomorrowSearch = `${formattedtomorrow}T18:00:00.000Z`;
 	  
 		const todayDocuments = await Ruble.find({
-		  createdAt: { $gte: yesterdaySearch, $lt: todaySearch }
+		  created: { $gte: yesterdaySearch, $lt: todaySearch }
 		});
 	  
 		const tomorrowDocuments = await Ruble.find({
-		  createdAt: { $gte: todaySearch, $lt: tomorrowSearch }
+		  created: { $gte: todaySearch, $lt: tomorrowSearch }
 		});
 	
 		if (todayDocuments.length === 0) {
@@ -80,7 +80,7 @@ export const getPriceRubDate = async (req, res) => {
 	  }
   
 	  const documents = await Ruble.find({
-		createdAt: { $gte: startDate, $lt: endDate }
+		created: { $gte: startDate, $lt: endDate }
 	  });
   
 	  // Verify data retrieval and handle empty results

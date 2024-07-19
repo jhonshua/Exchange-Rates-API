@@ -13,14 +13,10 @@ const sitemaNationalPriceSchema = new Schema({
     type: Number,
     required: true, // Mark 'venta' as a required field
   },
-  createdAt: {
+  created:{
     type: Date,
-    default: Date.now, // Set default value for creation time
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now, // Set default value for update time
-  },
-});
+    required: true,
+  }
+}, { timestamps: false }); 
 
 export default model('sitemaNationalPrice', sitemaNationalPriceSchema);

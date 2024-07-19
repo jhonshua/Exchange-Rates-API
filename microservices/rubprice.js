@@ -7,32 +7,32 @@ const schedules = [
 	'0 18 * * *' // 6:00 PM
 ];
 
+const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+const formattedYesterday = yesterday.toLocaleDateString('en-CA');
+
+const today = new Date();
+const formattedtoday = new Date(today.getTime() - 4 * 60 * 60 * 1000);
+
+const tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1);
+const formattedtomorrow = tomorrow.toLocaleDateString('en-CA');
+
+const start = `${formattedYesterday}T18:00:00.000Z`;
+const end = formattedtoday;
+const next = `${formattedtomorrow}T18:00:00.000Z`;
+
 async function schedulesRub() {
 	try {
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        const formattedYesterday = yesterday.toLocaleDateString('en-CA');
-    
-        const today = new Date();
-        const formattedtoday = today.toLocaleDateString('en-CA');
-    
-        const tomorrow = new Date(today)
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const formattedtomorrow = tomorrow.toLocaleDateString('en-CA');
-    
-        const start = `${formattedYesterday}T17:00:00.000Z`;
-        const end = `${formattedtoday}T18:00:00.000Z`;
-        const next = `${formattedtomorrow}T18:00:00.000Z`;
-    
         const precio1 = await Ruble.find({
-            createdAt: {
+            created: {
                 $gte: start,
                 $lt: end
             }
         });
     
         const precio2 = await Ruble.find({
-            createdAt: {
+            created: {
                 $gte: end,
                 $lt: next
             }
@@ -77,7 +77,8 @@ async function rubScrapeDivContent() {
 		// Guardar el precio en la base de datos
 		const ruble = new Ruble({
 			fecha: new Date(),
-			precio: cleanText // Guardar como string
+			precio: cleanText,
+            created: formattedtoday
 		});
 
 		await ruble.save();

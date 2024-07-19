@@ -7,7 +7,7 @@ import { schedulesUsd } from './microservices/usdprice.js';
 import { schedulesRub } from './microservices/rubprice.js';
 import { schedulesEur } from './microservices/eurprice.js';
 import { scheduleSistemaNacional } from './microservices/sistemaNationalPrice.js'
-import { criptoprice } from './microservices/criptoprice.js';
+import { schedulesCripto } from './microservices/criptoprice.js';
 import 'dotenv/config';
 
 import user from './routes/user.routes.js';
@@ -28,7 +28,7 @@ app.use(
 );
 
 connectDB();
-// criptoprice();
+schedulesCripto();
 schedulesUsd();
 schedulesEur();
 schedulesRub();

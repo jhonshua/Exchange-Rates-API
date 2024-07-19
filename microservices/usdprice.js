@@ -7,49 +7,48 @@ const schedules = [
 	'0 18 * * *' // 6:00 PM
 ];
 
+const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+const formattedYesterday = yesterday.toLocaleDateString('en-CA');
+
+const today = new Date();
+const formattedtoday = new Date(today.getTime() - 4 * 60 * 60 * 1000);
+
+const tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1);
+const formattedtomorrow = tomorrow.toLocaleDateString('en-CA');
+
+const start = `${formattedYesterday}T18:00:00.000Z`;
+const end = formattedtoday;
+const next = `${formattedtomorrow}T18:00:00.000Z`;
+
 async function schedulesUsd() {
-	 try {
-	const yesterday = new Date();
-	yesterday.setDate(yesterday.getDate() - 1);
-	const formattedYesterday = yesterday.toLocaleDateString('en-CA');
+	try {
+		const precio1 = await Dolar.find({
+			created: {
+				$gte: start,
+				$lt: end
+			}
+		});
 
-	const today = new Date();
-    const formattedtoday = today.toLocaleDateString('en-CA');
+		const precio2 = await Dolar.find({
+			created: {
+				$gte: end,
+				$lt: next
+			}
+		});
 
-	const tomorrow = new Date(today)
-	tomorrow.setDate(today.getDate() + 1);
-	const formattedtomorrow = tomorrow.toLocaleDateString('en-CA');
-
-	const start = `${formattedYesterday}T17:00:00.000Z`;
-	const end = `${formattedtoday}T18:00:00.000Z`;
-	const next = `${formattedtomorrow}T18:00:00.000Z`;
-
-	const precio1 = await Dolar.find({
-		createdAt: {
-			$gte: start,
-			$lt: end
-		}
-	});
-
-	const precio2 = await Dolar.find({
-		createdAt: {
-			$gte: end,
-			$lt: next
-		}
-	});
-
-	// Comprobar datos guardados y accionar
+		//Comprobar datos guardados y accionar
 		if (precio1.length === 0) {
 			await usdScrapeDivContent();
-		} else if(precio2.length === 0){
+		} else if (precio2.length === 0) {
 			await usdScrapeDivContent();
-		}else {
+		} else {
 			console.log('Ya se guardaron registros dolar hoy.');
 		}
-
 	} catch (error) {
 		console.error('Error:', error);
-		// Manejar el error de manera adecuada (por ejemplo, registrarlo o notificar)
+		//	Manejar el error de manera adecuada (por ejemplo, registrarlo o notificar)
 	}
 }
 
@@ -76,7 +75,8 @@ async function usdScrapeDivContent() {
 		// Guardar el precio en la base de datos
 		const dolar = new Dolar({
 			fecha: new Date(),
-			precio: cleanText // Guardar como string
+			precio: cleanText,
+			created: formattedtoday
 		});
 
 		await dolar.save();

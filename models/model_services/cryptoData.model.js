@@ -20,7 +20,11 @@ const cryptoSchema= new Schema({
         required: false, 
         default: {}, 
       },
-    }, { timestamps: true });
+      created:{
+        type: Date,
+        required: true,
+      }
+    }, { timestamps: false });
     
 
 export default model('CryptoData', cryptoSchema);

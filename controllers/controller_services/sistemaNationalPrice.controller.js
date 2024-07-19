@@ -18,11 +18,11 @@ export const GetPrecioNational = async (req, res) => {
 		const tomorrowSearch = `${formattedtomorrow}T18:00:00.000Z`;
 
 		const todayDocuments = await sitemaNationalPrice.find({
-			createdAt: { $gte: yesterdaySearch, $lt: todaySearch }
+			created: { $gte: yesterdaySearch, $lt: todaySearch }
 		});
 
 		const tomorrowDocuments = await sitemaNationalPrice.find({
-			createdAt: { $gte: todaySearch, $lt: tomorrowSearch }
+			created: { $gte: todaySearch, $lt: tomorrowSearch }
 		});
 
 		if (todayDocuments.length === 0) {
@@ -79,7 +79,7 @@ export const GetPrecioNationalDate = async (req, res) => {
 		}
 
 		const documents = await sitemaNationalPrice.find({
-			createdAt: { $gte: startDate, $lt: endDate }
+			created: { $gte: startDate, $lt: endDate }
 		});
 
 		// Verify data retrieval and handle empty results

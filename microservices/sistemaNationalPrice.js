@@ -8,32 +8,32 @@ const schedules = [
   '0 18 * * *' // 6:00 PM
 ];
 
+const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+const formattedYesterday = yesterday.toLocaleDateString('en-CA');
+
+const today = new Date();
+const formattedtoday = new Date(today.getTime() - 4 * 60 * 60 * 1000);
+
+const tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1);
+const formattedtomorrow = tomorrow.toLocaleDateString('en-CA');
+
+const start = `${formattedYesterday}T18:00:00.000Z`;
+const end = formattedtoday;
+const next = `${formattedtomorrow}T18:00:00.000Z`;
+
 async function scheduleSistemaNacional() {
 	try {
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        const formattedYesterday = yesterday.toLocaleDateString('en-CA');
-    
-        const today = new Date();
-        const formattedtoday = today.toLocaleDateString('en-CA');
-    
-        const tomorrow = new Date(today)
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const formattedtomorrow = tomorrow.toLocaleDateString('en-CA');
-    
-        const start = `${formattedYesterday}T18:00:00.000Z`;
-        const end = `${formattedtoday}T18:00:00.000Z`;
-        const next = `${formattedtomorrow}T18:00:00.000Z`;
-    
         const precio1 = await sitemaNationalPrice.find({
-            createdAt: {
+            created: {
                 $gte: start,
                 $lt: end
             }
         });
     
         const precio2 = await sitemaNationalPrice.find({
-            createdAt: {
+            created: {
                 $gte: end,
                 $lt: next
             }
@@ -112,7 +112,12 @@ schedules.forEach((schedule) => {
 
 async function saveData(data) {
   for (const item of data) {
-    const newData = new sitemaNationalPrice(item);
+    const newData = new sitemaNationalPrice({
+      banco: item.banco,
+      compra: item.compra,
+      venta: item.venta,
+      created: formattedtoday
+  });
 
     try {
       await newData.save();

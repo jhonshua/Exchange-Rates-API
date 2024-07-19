@@ -1,9 +1,4 @@
 import { Schema, model } from 'mongoose';
-
-const dateTransformer = (value) => {
-    const date = new Date(value);
-    return date.toLocaleDateString(); 
-  };
   
 const rubleSchema = new Schema({
     fecha: {
@@ -13,15 +8,11 @@ const rubleSchema = new Schema({
       precio: {
         type: String,
         required: true,
-      },
-      createdAt: {
+      }, 
+      created:{
         type: Date,
-        transform: dateTransformer,
-      },
-      updatedAt: {
-        type: Date,
-        transform: dateTransformer,
-      },
-    }, { timestamps: true }); 
+        required: true,
+      }
+    }, { timestamps: false }); 
 
 export default model('Ruble', rubleSchema);

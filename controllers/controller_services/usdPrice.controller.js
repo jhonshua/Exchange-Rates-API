@@ -19,11 +19,11 @@ export const getPriceUsd = async (req, res) => {
     const tomorrowSearch = `${formattedtomorrow}T18:00:00.000Z`;
   
     const todayDocuments = await Dolar.find({
-      createdAt: { $gte: yesterdaySearch, $lt: todaySearch }
+      created: { $gte: yesterdaySearch, $lt: todaySearch }
     });
   
     const tomorrowDocuments = await Dolar.find({
-      createdAt: { $gte: todaySearch, $lt: tomorrowSearch }
+      created: { $gte: todaySearch, $lt: tomorrowSearch }
     });
 
     if (todayDocuments.length === 0) {
@@ -79,7 +79,7 @@ export const getPriceUsdDate = async (req, res) => {
     }
 
     const documents = await Dolar.find({
-      createdAt: { $gte: startDate, $lt: endDate }
+      created: { $gte: startDate, $lt: endDate }
     });
 
     // Verify data retrieval and handle empty results
