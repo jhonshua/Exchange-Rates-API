@@ -1,5 +1,4 @@
-import { launch } from 'puppeteer';
-import puppeteer from 'puppeteer'; 
+import chromium from 'chrome-aws-lambda'; 
 import cron from 'node-cron';
 import sitemaNationalPrice from '../models/model_services/sitemaNationalPrice.model.js';
 import 'dotenv/config';
@@ -58,8 +57,14 @@ async function usdScrapeDivSistemaNacional() {
   const divSelector = process.env.DIVSISTEM; // Selector CSS del div que contiene los datos
 
   try {
-    const browser = await puppeteer.launch({ headless: true });
-    const page = await browser.newPage();
+    browser = await chromium.puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
+    });
+  const page = await browser.newPage();
 
     // Navegación a la URL especificada y espera por el elemento objetivo
     await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
