@@ -1,6 +1,7 @@
 import { launch } from 'puppeteer';
 import cron from 'node-cron';
 import Euro from '../models/model_services/eur.model.js'; 
+import puppeteer from 'puppeteer'; 
 import 'dotenv/config';
 
 const schedules = [
@@ -57,7 +58,7 @@ async function eurScrapeDivContent() {
     const divSelector = process.env.DIVEUR;
 
     try {
-        const browser = await launch({ headless: true });
+        const browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
 
         await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
