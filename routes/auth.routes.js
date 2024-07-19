@@ -1,21 +1,11 @@
 import { Router } from 'express';
-import {
-	login,
-	register,
-	logout,
-	deleteUser
-} from '../controllers/controller_auth/auth.controller.js';
+import {login, logout} from '../controllers/controller_auth/auth.controller.js';
 import { authRequired } from '../middlewares/validateToken.js';
-import {
-	validateUserlogin,
-	validateReqBody,
-	validateUserRegistration
-} from '../middlewares/validation.js';
+import {validateUserlogin, validateReqBody } from '../middlewares/validation.js';
 
 const router = Router();
-router.post('/register', validateReqBody, validateUserRegistration, register);
 router.post('/auth', validateReqBody, validateUserlogin, login);
-router.post('/logout', logout);
-router.delete('/deleteUser', validateReqBody, authRequired, deleteUser);
+router.post('/logout', authRequired, logout);
+router.post('/reset', logout);
 
 export default router

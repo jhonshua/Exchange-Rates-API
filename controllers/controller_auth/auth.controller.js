@@ -1,5 +1,5 @@
 import User from '../../models/model_user/user.model.js';
-//import Rol from '../models/rol.model.js';
+import NotvalidToken from '../../models/model_tokenList/NotvalidToken.model.js'
 import { createAccessToken } from '../../libs/jwt.js';
 import { sendMail } from '../../libs/sendEmail.js';
 import bcrypt from 'bcryptjs';
@@ -87,12 +87,20 @@ export const login = async (req, res) => {
 };
 
 //logout de usuario**************************************************************************************
-export const logout = (req, res) => {
-	res.cookie('token', '', {
-		expires: new Date(0)
-	});
-	return res.status(200).json({ message: 'Sesión cerrada exitosamente' });
-};
+export const logout = async (req, res) => {
+	const token = req.headers.authorization?.split(' ')[1];
+	const existingToken = await NotvalidToken.findOne({ token });
+	
+	if (!existingToken) {
+		await NotvalidToken.create({ token, createdAt: Date.now() });
+	  }
+	
+	  // Invalidar el token en la cookie
+	  res.cookie('token', '', { expires: new Date(0) });
+	
+	  // Enviar la respuesta al cliente
+	  return res.status(200).json({ message: 'Sesión cerrada exitosamente' });
+	};
 
 //eliminamos usarios de la aplicacion********************************************************************
 export const deleteUser = async (req, res) => {

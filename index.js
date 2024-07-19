@@ -3,10 +3,10 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 import { connectDB } from './config/db.js';
-import { usdScrapeDivContent } from './microservices/usdprice.js';
-import { rubScrapeDivContent } from './microservices/rubprice.js';
-import { eurScrapeDivContent } from './microservices/eurprice.js';
-import { usdScrapeDivSistemaNacional } from './microservices/sistemaNationalPrice.js'
+import { schedulesUsd } from './microservices/usdprice.js';
+import { schedulesRub } from './microservices/rubprice.js';
+import { schedulesEur } from './microservices/eurprice.js';
+import { scheduleSistemaNacional } from './microservices/sistemaNationalPrice.js'
 import { criptoprice } from './microservices/criptoprice.js';
 import 'dotenv/config';
 
@@ -28,11 +28,11 @@ app.use(
 );
 
 connectDB();
-criptoprice();
-usdScrapeDivContent();
-eurScrapeDivContent();
-rubScrapeDivContent();
-usdScrapeDivSistemaNacional();
+// criptoprice();
+schedulesUsd();
+schedulesEur();
+schedulesRub();
+scheduleSistemaNacional();
 
 app.use(express.json({ strict: false }));
 app.use(morgan('dev'));

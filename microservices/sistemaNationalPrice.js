@@ -5,13 +5,54 @@ import 'dotenv/config';
 
 // Definición de horarios de ejecución
 const schedules = [
-  '0 9 * * *', // 9:00 AM
-  '0 13 * * *', // 1:00 PM
+  '0 18 * * *' // 6:00 PM
 ];
 
-// Función para extraer datos del sistema nacional de divisas
+async function scheduleSistemaNacional() {
+	try {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const formattedYesterday = yesterday.toLocaleDateString('en-CA');
+    
+        const today = new Date();
+        const formattedtoday = today.toLocaleDateString('en-CA');
+    
+        const tomorrow = new Date(today)
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const formattedtomorrow = tomorrow.toLocaleDateString('en-CA');
+    
+        const start = `${formattedYesterday}T18:00:00.000Z`;
+        const end = `${formattedtoday}T18:00:00.000Z`;
+        const next = `${formattedtomorrow}T18:00:00.000Z`;
+    
+        const precio1 = await sitemaNationalPrice.find({
+            createdAt: {
+                $gte: start,
+                $lt: end
+            }
+        });
+    
+        const precio2 = await sitemaNationalPrice.find({
+            createdAt: {
+                $gte: end,
+                $lt: next
+            }
+        });
+
+        if (precio1.length === 0) {
+           await usdScrapeDivSistemaNacional();
+        } else if(precio2.length === 0){
+           await usdScrapeDivSistemaNacional();
+        }else {
+            console.log('Ya se guardaron registros del Sistema Nacional hoy.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
 async function usdScrapeDivSistemaNacional() {
-  // Obtención de URL y selector del div desde variables de entorno
   const url = process.env.URLSITEM; // URL del sitio web a scrapear
   const divSelector = process.env.DIVSISTEM; // Selector CSS del div que contiene los datos
 
@@ -26,27 +67,21 @@ async function usdScrapeDivSistemaNacional() {
 
     // Extracción de datos mediante JavaScript dentro del contexto del navegador
     const tableData = await page.evaluate(() => {
-      // Selección de filas de la tabla
+
       const rows = document.querySelectorAll('.views-table tr');
       const extractedData = [];
-
-      // Iteración sobre cada fila de la tabla
       for (const row of rows) {
-        // Omitir la fila del encabezado
         if (row.classList.contains('views-row-first')) continue;
 
-        // Extracción de datos utilizando nombres de clase
+
         const bankCell = row.querySelector('.views-field.views-field-views-conditional');
         const buyRateCell = row.querySelector('.views-field.views-field-field-tasa-compra');
         const sellRateCell = row.querySelector('.views-field.views-field-field-tasa-venta');
 
-        // Verificación de la existencia de las células y extracción de valores
         if (bankCell && buyRateCell && sellRateCell) {
           const bankName = bankCell.textContent.trim();
           const buyRate = parseFloat(buyRateCell.textContent.trim().replace(',', ''));
           const sellRate = parseFloat(sellRateCell.textContent.trim().replace(',', ''));
-
-          // Almacenamiento de datos extraídos en un objeto
           extractedData.push({
             banco: bankName,
             compra: buyRate,
@@ -54,24 +89,15 @@ async function usdScrapeDivSistemaNacional() {
           });
         }
       }
-
-      // Retorno del array de objetos con datos extraídos
       return extractedData;
     });
 
-    // Cierre del navegador
     await browser.close();
-
-    // Eliminación de la primera línea del array (encabezado)
     const Data = tableData.slice(1);
-    //llamamos a la funcion que guarda en la base datos 
     await saveData(Data);
-
-    // Retorno del array de datos procesados
     return Data;
 
   } catch (error) {
-    // Manejo de errores durante el scraping
     console.error('Error al realizar scraping:', error);
     return null;
   }
@@ -85,13 +111,10 @@ schedules.forEach((schedule) => {
 });
 
 async function saveData(data) {
-  // Recorrer el array de datos
   for (const item of data) {
-    // Crear un nuevo documento con los datos del elemento actual
     const newData = new sitemaNationalPrice(item);
 
     try {
-      // Guardar el documento en la base de datos
       await newData.save();
       console.log(`Dato guardado: ${item.banco}`);
     } catch (error) {
@@ -100,5 +123,5 @@ async function saveData(data) {
   }
 }
 
-// Exportación de la función para su uso en otras partes del proyecto
-export { usdScrapeDivSistemaNacional };
+
+export { scheduleSistemaNacional };
