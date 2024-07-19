@@ -1,4 +1,5 @@
 import { launch } from 'puppeteer';
+import puppeteer from 'puppeteer'; 
 import cron from 'node-cron';
 import Ruble from '../models/model_services/rub.model.js';
 import 'dotenv/config';
@@ -59,8 +60,8 @@ async function rubScrapeDivContent() {
 
 
 	try {
-		const browser = await launch({ headless: true });
-		const page = await browser.newPage();
+		const browser = await puppeteer.launch({ headless: true });
+        const page = await browser.newPage();
 
 		await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
 		await page.waitForSelector(divSelector);
