@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer'; 
+import puppeteer from 'puppeteer';
 import cron from 'node-cron';
 import Dolar from '../models/model_services/usd.model.js';
 import 'dotenv/config';
@@ -57,9 +57,20 @@ async function usdScrapeDivContent() {
 	const divSelector = process.env.DIVUSD;
 
 	try {
-		const browser = await puppeteer.launch({ headless: true });
-        const page = await browser.newPage();
-
+		const browser = await puppeteer.launch({
+			executablePath:
+				process.env.NODE_ENV === 'PRODUCTION'
+					? process.env.PUPPETEER_EXECUTABLE_PATH
+					: puppeteer.executablePath(),
+			headless: true,
+			args:[
+				"--disable-setuid-sandbox",
+				"--no-sandbox",
+				"--single-process",
+				"--no-zygote"
+			]
+		});
+		const page = await browser.newPage();
 
 		await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
 		await page.waitForSelector(divSelector);
