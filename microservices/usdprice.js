@@ -1,4 +1,4 @@
-import chromium from 'chrome-aws-lambda'; 
+import puppeteer from 'puppeteer'; 
 import cron from 'node-cron';
 import Dolar from '../models/model_services/usd.model.js';
 import 'dotenv/config';
@@ -57,14 +57,9 @@ async function usdScrapeDivContent() {
 	const divSelector = process.env.DIVUSD;
 
 	try {
-		browser = await chromium.puppeteer.launch({
-            args: chromium.args,
-            defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath,
-            headless: chromium.headless,
-            ignoreHTTPSErrors: true,
-          });
+		const browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
+
 
 		await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
 		await page.waitForSelector(divSelector);

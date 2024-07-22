@@ -1,4 +1,4 @@
-import chromium from 'chrome-aws-lambda'; 
+import puppeteer from 'puppeteer'; 
 import cron from 'node-cron';
 import Ruble from '../models/model_services/rub.model.js';
 import 'dotenv/config';
@@ -59,13 +59,7 @@ async function rubScrapeDivContent() {
 
 
 	try {
-		browser = await chromium.puppeteer.launch({
-            args: chromium.args,
-            defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath,
-            headless: chromium.headless,
-            ignoreHTTPSErrors: true,
-          });
+		const browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
 
 		await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
