@@ -36,11 +36,7 @@ export const getPriceRub = async (req, res) => {
 		return res
 		  .status(200)
 		  .json({
-			data: {
-			  date: todayDocuments[0].fecha,
-			  price_today: todayDocuments[0].precio,
-			  price_tomorrow: tomorrowDocuments[0].precio
-			},
+			data: todayDocuments,
 			name: 'Russian Ruble',
 			rate: "Rub vs Bs",
 			indicator: "BCV",

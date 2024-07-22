@@ -1,6 +1,7 @@
 import ApiKey from '../models/model_apiKey/apiKey.model.js';
 
 export const verifyApiKey = async (req, res, next) => {
+  console.log(req.params)
     const apiKey = req.params.apiKey; // Obtener la API Key del query string
   
     if (!apiKey) {

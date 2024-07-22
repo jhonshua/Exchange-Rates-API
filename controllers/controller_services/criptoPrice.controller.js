@@ -1,6 +1,7 @@
 import CryptoData from '../../models/model_services/cryptoData.model.js';
 
 export const GetPriceCripto = async (req, res) => {
+    console.log("me ejecuto")
     try {
         // Ensure sorting by fecha with optional secondary sorting by _id
         const Values = await CryptoData.find();

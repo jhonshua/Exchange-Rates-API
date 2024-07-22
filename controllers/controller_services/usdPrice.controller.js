@@ -22,10 +22,6 @@ export const getPriceUsd = async (req, res) => {
       created: { $gte: yesterdaySearch, $lt: todaySearch }
     });
   
-    const tomorrowDocuments = await Dolar.find({
-      created: { $gte: todaySearch, $lt: tomorrowSearch }
-    });
-
     if (todayDocuments.length === 0) {
       return res
         .status(404)
@@ -35,11 +31,7 @@ export const getPriceUsd = async (req, res) => {
     return res
       .status(200)
       .json({
-        data: {
-          date: todayDocuments[0].fecha,
-          price_today: todayDocuments[0].precio,
-          price_tomorrow: tomorrowDocuments[0].precio
-        },
+        data: todayDocuments,
         name: 'United States Dollar',
         rate: "USD vs Bs",
         indicator: "BCV",

@@ -20,7 +20,7 @@ router.get('/GetPrecioEurDates/:apiKey', verifyApiKey, getPriceEurDate);
 router.get('/GetPrecioNational/:apiKey', verifyApiKey, GetPrecioNational);
 router.get('/GetPrecioNationalDate/:apiKey', verifyApiKey, GetPrecioNationalDate);
 
-router.get('/GetCripto/:apikey', verifyApiKey,  GetPriceCripto);
+router.get('/GetCripto/:apiKey',verifyApiKey,  GetPriceCripto);
 //router.get('/GetCriptoData/:apikey', verifyApiKey,  GetPriceCripto);
 
 //router.get('/GetGold/:apikey', verifyApiKey,  GetPriceCripto);
