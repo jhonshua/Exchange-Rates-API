@@ -57,7 +57,19 @@ async function eurScrapeDivContent() {
     const divSelector = process.env.DIVEUR;
 
     try {
-        const browser = await puppeteer.launch({ headless: true });
+        const browser = await puppeteer.launch({
+			executablePath:
+				process.env.NODE_ENV === 'PRODUCTION'
+					? process.env.PUPPETEER_EXECUTABLE_PATH
+					: puppeteer.executablePath(),
+			headless: true,
+			args:[
+				"--disable-setuid-sandbox",
+				"--no-sandbox",
+				"--single-process",
+				"--no-zygote"
+			]
+		});
         const page = await browser.newPage();
 
         await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });

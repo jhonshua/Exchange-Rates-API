@@ -57,7 +57,19 @@ async function usdScrapeDivSistemaNacional() {
   const divSelector = process.env.DIVSISTEM; // Selector CSS del div que contiene los datos
 
   try {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+			executablePath:
+				process.env.NODE_ENV === 'PRODUCTION'
+					? process.env.PUPPETEER_EXECUTABLE_PATH
+					: puppeteer.executablePath(),
+			headless: true,
+			args:[
+				"--disable-setuid-sandbox",
+				"--no-sandbox",
+				"--single-process",
+				"--no-zygote"
+			]
+		});
         const page = await browser.newPage();
 
     // Navegación a la URL especificada y espera por el elemento objetivo
